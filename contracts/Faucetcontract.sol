@@ -28,13 +28,20 @@ contract Faucet {
         uint index = numOfFunders++;
         funders[index] = msg.sender;
     }
+    //addFUnds is a set of instructions in bytecode executed by evm
 
 
     //not pure 
     //will not work with mapping
-    // function getAllFunders() public view returns(address[] memory){
+    function getAllFunders() public view returns(address[] memory){
+        address[] memory _funders = new address[](numOfFunders);
+        for(uint i = 0;i < numOfFunders ; i++){
+            _funders[i] = funders[i];
+        }
+        return _funders;
     //     return funders;       
-    // }
+    
+    }
 
     //external vs public
     //public can be used also within smart contract
@@ -44,8 +51,9 @@ contract Faucet {
         //address[] memory _funders = getAllFunders();
         return funders[index];
 
+    //web3 
     //const instance = await Faucet.deployed()
-    //instance.addFunds({from: , to:})
+    //instance.addFunds({from: , value:})
     //instance.getAllFunders()
     
 

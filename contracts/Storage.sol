@@ -7,6 +7,8 @@ contract Storage {
   mapping (uint => uint) public aa;//slot 0
   mapping (address => uint) public bb;
 
+
+  //to access value keccak256(slot)+ index of number
   uint[] public cc; //slot2
 
   uint8 public a = 7; // 1 byte

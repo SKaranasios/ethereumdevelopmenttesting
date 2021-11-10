@@ -36,10 +36,14 @@ contract Funding{
 
     //specify ammount
     function withdraw(uint withdrawAmmount) external   {
+ 
+        require(withdrawAmmount <= 100000000000000000 , "Cannot withdraw mote than 0.1 ether");
         //if we have no funds it should throw error
         //set a limit for ammount 
-        if(withdrawAmmount < 1000000000000000000 ){payable(msg.sender).transfer(withdrawAmmount);}
-        //trnasfer should be payable
+        //if(withdrawAmmount < 1000000000000000000 )
+        payable(msg.sender).transfer(withdrawAmmount);
+        //transfer should be payable
+        
         
     }
 

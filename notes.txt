@@ -93,3 +93,12 @@ public will be part of abi/part of interface and created getter automatically
 //mapping
 key,value
 prevent duplication of addresses
+
+
+//storage 
+//access mapping , arrays(dynamic values)
+
+
+//withdraw_funds
+//modifier
+set of instructions to not repeat code

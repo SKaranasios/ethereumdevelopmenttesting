@@ -9,9 +9,12 @@ contract Faucet {
     //address[] public funders;
 
     uint public numOfFunders;
-    //prevent duplication of addresses
-    mapping(uint => address) public funders;
+    // can prevent duplication of addresses
+    //mapping(uint => address) public funders;
+    //NOW KEYS ARE ADDRESSES AND CANNOT BE DUPLICATED
+    mapping(address => bool) private funders;
 
+    mapping(uint=> address) private lutFunders;
     //special function
     //its called when you make a transaction that doesn't specify
     //function name to call(name(function))
@@ -26,22 +29,37 @@ contract Faucet {
     function addFunds() external payable {
         //assigning then incrementing
         uint index = numOfFunders++;
-        funders[index] = msg.sender;
+        address funder = msg.sender;
+    
+        if(!funders[funder]){
+        
+            //numOfFunders++;
+            //increment after first execution, we want first "slot" to be 0
+            uint index = numOfFunders++;
+
+            funders[funder] = true;
+            //create 
+            lutFunders[numOfFunders]= funder;
+        }
+        //funders[index] = msg.sender;
     }
     //addFUnds is a set of instructions in bytecode executed by evm
 
 
     //not pure 
     //will not work with mapping
-    function getAllFunders() public view returns(address[] memory){
+    //to get all funders need to create new address[]and with a for lopp itetrate
+    //through values of mapping and passing them to memory address[]
+     function getAllFunders() public view returns(address[] memory){
         address[] memory _funders = new address[](numOfFunders);
         for(uint i = 0;i < numOfFunders ; i++){
-            _funders[i] = funders[i];
+            _funders[i] = lutFunders[i];
         }
         return _funders;
     //     return funders;       
     
     }
+
 
     //external vs public
     //public can be used also within smart contract
@@ -49,7 +67,7 @@ contract Faucet {
 
     function getFunderAtIndex(uint8 index) external view returns(address) {
         //address[] memory _funders = getAllFunders();
-        return funders[index];
+        // return funders[index];
 
     //web3 
     //const instance = await Faucet.deployed()

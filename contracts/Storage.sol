@@ -10,7 +10,7 @@ contract Storage {
   // 32 bytes, all values will be stored in slot 0
 
   // 0x0f 01 648faad551af1da6d6556f0e3c41b37b6055bad1 000a 07
-    //000000000000000f
+    //
   uint256 public f = 200; // 32bytes -> slot 1
 
   uint8 public g = 40; // 1byte -> slot 2

@@ -71,3 +71,25 @@ data constists of function signature(keccak-256)
 //pure,view
 it indicates that the function will not elter 
 the storage state
+
+
+//external vs public
+public can be used also within smart contract
+if externall is used should specify .this but higher gas consumption will be causes
+
+
+
+//memory
+private -> can only be accesed within smart contract
+internal -> can be accesible within smart contract and also derived smart contract
+private and iternal will not be in faucet.abi(json file)/interface
+public will be part of abi/part of interface and created getter automatically
+
+
+//web3 storage
+ web3.eth.getStorageAt("0x8403E7650B2e5c171489aC56B2fc550EE00b872a",0) --address of contract ,index
+'0x0f01648faad551af1da6d6556f0e3c41b37b6055bad1  000a  07'
+
+//mapping
+key,value
+prevent duplication of addresses

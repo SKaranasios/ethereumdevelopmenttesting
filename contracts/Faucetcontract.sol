@@ -4,9 +4,13 @@ contract Faucet {
 
     //private -> can only be accesed within smart contract
     //internal -> can be accesible within smart contract and also derived smart contract
-    //public will be part of abi/part of interface
-    address[] public funders;
+    //private and iternal will not be in faucet.abi(json file)/interface
+    //public will be part of abi/part of interface and created getter automatically
+    //address[] public funders;
 
+    uint public numOfFunders;
+    //prevent duplication of addresses
+    mapping(uint => address) public funders;
 
     //special function
     //its called when you make a transaction that doesn't specify
@@ -20,22 +24,25 @@ contract Faucet {
     receive() external payable{}
 
     function addFunds() external payable {
-        funders.push(msg.sender);
+        //assigning then incrementing
+        uint index = numOfFunders++;
+        funders[index] = msg.sender;
     }
 
 
     //not pure 
-    function getAllFunders() public view returns(address[] memory){
-        return funders;       
-    }
+    //will not work with mapping
+    // function getAllFunders() public view returns(address[] memory){
+    //     return funders;       
+    // }
 
     //external vs public
     //public can be used also within smart contract
     //if externall is used should specify .this but higher gas consumption will be causes
 
     function getFunderAtIndex(uint8 index) external view returns(address) {
-        address[] memory _funders = getAllFunders();
-        return _funders[index];
+        //address[] memory _funders = getAllFunders();
+        return funders[index];
 
     //const instance = await Faucet.deployed()
     //instance.addFunds({from: , to:})
@@ -55,4 +62,3 @@ contract Faucet {
 //to talk to node on the network you can make json-rpc http calls
 }
 
-//const instance = await Faucet.deployed() 

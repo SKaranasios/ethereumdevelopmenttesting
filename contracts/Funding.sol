@@ -22,7 +22,7 @@ contract Funding{
     function addFunds() external payable{
         
         //should create a address object for key value which will be msg.sender
-        address key =msg.sender;external
+        address key =msg.sender;
         //check if key value exists inside mapping  and add it
 
         if(!funders[key]){
@@ -34,6 +34,14 @@ contract Funding{
         }
     }
 
+    //specify ammount
+    function withdraw(uint withdrawAmmount) external   {
+        //if we have no funds it should throw error
+        //set a limit for ammount 
+        if(withdrawAmmount < 1000000000000000000 ){payable(msg.sender).transfer(withdrawAmmount);}
+        //trnasfer should be payable
+        
+    }
 
 
     //public to be able to called by other functions withing smart contract
@@ -53,15 +61,23 @@ contract Funding{
         return  _funders;
     }
 
-}
-
-function getFundersAtIndex(uint index) public view returns(address[] memory){
+    function getFundersAtIndex(uint index) external view returns(address){
     //_funders is not accesible/visible outside of function , but  function getallFunders() is public and returns the _funders
     address[] memory _indexfunders = getAllFunders();
 
     return _indexfunders[index];
+    
 }
 
-//const instance = await Faucet.deployed()
-//instance.addFunds({from: , value:})
+}
+
+
+//const instance = await Funding.deployed()
+
+//instance.addFunds({from:accounts[0], value:'2000000000000000000'})
+//instance.addFunds({from: account[1], value:'1000000000000000000'})
+
 //instance.getAllFunders()
+//instance.getFundersAtIndex()
+
+//instance.withdraw('500000000000000000', {from:accounts[1]})

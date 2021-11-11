@@ -1,12 +1,14 @@
 pragma solidity >=0.4.22 <0.9.0;
 
-contract Faucet {
+import "./Logger.sol";
 
+contract Faucet  is Logger {
     //private -> can only be accesed within smart contract
     //internal -> can be accesible within smart contract and also derived smart contract
     //private and iternal will not be in faucet.abi(json file)/interface
     //public will be part of abi/part of interface and created getter automatically
     //address[] public funders;
+
 
     uint public numOfFunders;
     // can prevent duplication of addresses
@@ -22,6 +24,11 @@ contract Faucet {
     //exteranl function are part of the cotnract interface
     //which means they can be called via contracts and othere transactions
 
+
+    //implementing abstract contract function
+    function emitLog() public override pure  returns(bytes32){
+        return "Hello world";
+    }
 
 //receive and addFUnds are special functions
     receive() external payable{}

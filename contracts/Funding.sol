@@ -1,5 +1,9 @@
 pragma solidity  >=0.4.22 <0.9.0;
 
+
+
+
+
 /*so here we want to create a contract who can recieve funds from accounts
 and through web 3 get all funders and funder at specific  index 
 
@@ -18,6 +22,29 @@ contract Funding{
     mapping(uint => address) private lutfunders;
     uint public numOfFunders;
 
+    address owner;
+
+    constructor () {
+        owner = msg.sender;
+   
+    }
+
+    modifier limitWithdrawAmount(uint withdrawAmmount){
+        require(
+            withdrawAmmount <= 1000000000000000000,
+            "Cannot withdraw more that 0.1 ether"
+        );
+        //send error or execute function with modifier is set
+        _;
+    }
+
+    modifier onlyOwner{
+        require(
+            msg.sender == owner
+            ,"Only owner can call this function"
+        );
+        _;
+    }
 
     function addFunds() external payable{
         
@@ -39,10 +66,8 @@ contract Funding{
  
         require(withdrawAmmount <= 100000000000000000 , "Cannot withdraw mote than 0.1 ether");
         //if we have no funds it should throw error
-        //set a limit for ammount 
         //if(withdrawAmmount < 1000000000000000000 )
         payable(msg.sender).transfer(withdrawAmmount);
-        //transfer should be payable
         
         
     }

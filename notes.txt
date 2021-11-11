@@ -102,3 +102,6 @@ prevent duplication of addresses
 //withdraw_funds
 //modifier
 set of instructions to not repeat code
+
+//inheritance
+//abstact 
